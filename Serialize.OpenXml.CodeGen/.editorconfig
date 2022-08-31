@@ -1,0 +1,12 @@
+# top-most EditorConfig file
+root = true
+
+[*]
+trim_trailing_whitespace = true
+indent_style = space
+
+[*.ps1]
+indent_size = 2
+
+[*.{cs,cake,csproj,sh}]
+indent_size = 4

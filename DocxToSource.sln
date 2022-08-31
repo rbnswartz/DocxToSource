@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocxToSource", "DocxToSource\DocxToSource.csproj", "{97B64DA2-2DC0-41B3-A779-9D8CB4401350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialize.OpenXml.CodeGen", "Serialize.OpenXml.CodeGen\src\Serialize.OpenXml.CodeGen\Serialize.OpenXml.CodeGen.csproj", "{05D4B137-873C-4E08-970E-F65580D38FD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97B64DA2-2DC0-41B3-A779-9D8CB4401350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97B64DA2-2DC0-41B3-A779-9D8CB4401350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97B64DA2-2DC0-41B3-A779-9D8CB4401350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97B64DA2-2DC0-41B3-A779-9D8CB4401350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05D4B137-873C-4E08-970E-F65580D38FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D4B137-873C-4E08-970E-F65580D38FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D4B137-873C-4E08-970E-F65580D38FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D4B137-873C-4E08-970E-F65580D38FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

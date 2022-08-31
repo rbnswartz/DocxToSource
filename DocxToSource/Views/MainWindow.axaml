@@ -1,0 +1,151 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DocxToSource.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DocxToSource"
+        xmlns:source="https://github.com/avaloniaui/avaloniaedit"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Height="500"
+        Width="900"
+        x:Class="DocxToSource.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="DocxToSource">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <!--
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding QuitCommand}"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenCommand}"/>
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
+    -->
+    <Window.Styles>
+        <Style Selector="GridSplitter">
+            <Setter Property="ShowsPreview" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <Style Selector="source|TextEditor">
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ShowLineNumbers" Value="True"/>
+            <Setter Property="WordWrap" Value="{Binding WordWrap}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+        <Style Selector="MenuItem > CheckBox">
+            <Setter Property="Margin" Value="-10,0,0,0"/>
+        </Style>
+    </Window.Styles>
+    <DockPanel LastChildFill="True">
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" InputGesture="Ctrl+O" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="_Close" InputGesture="Ctrl+C" Command="{Binding CloseCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Quit" InputGesture="Ctrl+Q" Command="{Binding QuitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Source Code">
+                <MenuItem Header="_Generate Source Code">
+                    <MenuItem.Icon>
+                        <CheckBox IsChecked="{Binding GenerateSourceCode}">
+                        </CheckBox>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Word Wrap">
+                    <MenuItem.Icon>
+                        <CheckBox IsChecked="{Binding WordWrap}">
+                        </CheckBox>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Syntax _Highlighting">
+                    <MenuItem.Icon>
+                        <CheckBox IsChecked="{Binding HighlightSyntax}">
+                        </CheckBox>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="#FFF0F0F0" >
+            <TextBlock Margin="5 0">Language:</TextBlock>
+            <ComboBox
+                Width="125"
+                Items="{Binding LanguageDefinitions}"
+                SelectedItem="{Binding SelectedLanguage}">
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <TextBlock/>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView
+                Grid.Column="0"
+                BorderThickness="0"
+                Items="{Binding TreeData}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
+                <TreeView.ItemTemplate>
+                    <TreeDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Header}"></TextBlock>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <GridSplitter ResizeDirection="Columns" Width="5" Grid.Column="1"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*">
+                        <!--
+                        <RowDefinition.Style>
+                            <Style TargetType="{x:Type RowDefinition}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="True">
+                                        <Setter Property="Height" Value="*"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="False">
+                                        <Setter Property="Height" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                        -->
+                    </RowDefinition>
+                    <RowDefinition Height="Auto">
+                        
+                    </RowDefinition>
+                    <RowDefinition Height="*">
+                        <!--
+                        <RowDefinition.Style>
+                            <Style TargetType="{x:Type RowDefinition}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="True">
+                                        <Setter Property="Height" Value="5"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="False">
+                                        <Setter Property="Height" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                        -->
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <source:TextEditor x:Name="xXmlSourceEditor" Grid.Row="0" Background="WhiteSmoke" Document ="{Binding XmlSourceDocument}" SyntaxHighlighting="{Binding XmlSourceDocumentSyntax}"/>
+                <GridSplitter ResizeDirection="Rows" Height="5" Grid.Row="1"/>
+                <source:TextEditor x:Name="xCodeSourceEditor" Grid.Row="2" Background="FloralWhite" Document="{Binding CodeDocument}" SyntaxHighlighting="{Binding CodeDocumentSyntax}"/>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
